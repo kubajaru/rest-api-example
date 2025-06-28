@@ -1,22 +1,25 @@
 package main
 
 import (
+	"fmt"
+	"kubajaru/rest-api-example/config"
 	"kubajaru/rest-api-example/controller"
 	"kubajaru/rest-api-example/repository"
 	"kubajaru/rest-api-example/service"
 	"log/slog"
 	"net/http"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	// Define a log level variable (can be updated at runtime)
-	var levelVar slog.LevelVar
-	levelVar.Set(slog.LevelInfo) // Default level (can be set to LevelDebug, etc.)
+	_ = godotenv.Load() // loads from .env
+	cfg := config.LoadConfig()
 
 	// Create a JSON handler with the level variable
 	handler := slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
-		Level: &levelVar,
+		Level: &cfg.LogLevel,
 	})
 
 	// Set default logger
@@ -28,8 +31,9 @@ func main() {
 	ctrl := controller.NewTaskController(svc)
 	ctrl.RegisterRoutes()
 
-	slog.Info("Starting server", "port", 8080)
-	err := http.ListenAndServe(":8080", nil)
+	addr := fmt.Sprintf(":%s", cfg.Port)
+	slog.Info("Starting server", "port", cfg.Port)
+	err := http.ListenAndServe(addr, nil)
 	if err != nil {
 		slog.Error("Server failed to start", "error", err)
 	}
