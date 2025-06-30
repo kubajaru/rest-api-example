@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"kubajaru/rest-api-example/config"
 	"kubajaru/rest-api-example/controller"
+	"kubajaru/rest-api-example/model"
 	"kubajaru/rest-api-example/repository"
 	"kubajaru/rest-api-example/service"
 	"log/slog"
@@ -30,6 +31,13 @@ func main() {
 	svc := service.NewTaskService(repo)
 	ctrl := controller.NewTaskController(svc)
 	ctrl.RegisterRoutes()
+
+	task := model.Task{
+		Title: "example",
+		Done:  false,
+	}
+
+	svc.Create(task)
 
 	addr := fmt.Sprintf(":%s", cfg.Port)
 	slog.Info("Starting server", "port", cfg.Port)

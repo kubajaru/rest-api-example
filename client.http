@@ -1,0 +1,21 @@
+GET https://api.restful-api.dev/objects HTTP/1.1
+
+###
+
+GET http://localhost:9090/tasks HTTP/1.1
+
+###
+
+POST http://localhost:9090/tasks HTTP/1.1
+content-type: application/json
+
+{
+    "title": "sample",
+    "done": true
+}
+
+###
+
+GET http://localhost:9090/tasks/2 HTTP/1.1
+
+###
