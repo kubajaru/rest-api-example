@@ -18,9 +18,9 @@ func NewTaskController(s *service.TaskService) *TaskController {
 	return &TaskController{service: s}
 }
 
-func (c *TaskController) RegisterRoutes() {
-	http.HandleFunc("/tasks", c.handleTasks)
-	http.HandleFunc("/tasks/", c.handleTaskByID)
+func (c *TaskController) RegisterRoutes(mux *http.ServeMux) {
+	mux.HandleFunc("/tasks", c.handleTasks)
+	mux.HandleFunc("/tasks/", c.handleTaskByID)
 }
 
 func (c *TaskController) handleTasks(w http.ResponseWriter, r *http.Request) {

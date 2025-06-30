@@ -27,22 +27,32 @@ func main() {
 	logger := slog.New(handler)
 	slog.SetDefault(logger)
 
-	repo := repository.NewTaskRepository()
-	svc := service.NewTaskService(repo)
-	ctrl := controller.NewTaskController(svc)
-	ctrl.RegisterRoutes()
-
-	task := model.Task{
-		Title: "example",
-		Done:  false,
-	}
-
-	svc.Create(task)
-
+	// Start server
 	addr := fmt.Sprintf(":%s", cfg.Port)
 	slog.Info("Starting server", "port", cfg.Port)
-	err := http.ListenAndServe(addr, nil)
+	err := http.ListenAndServe(addr, setupRouter())
 	if err != nil {
 		slog.Error("Server failed to start", "error", err)
 	}
+}
+
+func setupRouter() *http.ServeMux {
+	// Initalize router
+	mux := http.NewServeMux()
+
+	// Initalize Tasks controller
+	taskRepo := repository.NewTaskRepository()
+	taskService := service.NewTaskService(taskRepo)
+	taskController := controller.NewTaskController(taskService)
+	taskController.RegisterRoutes(mux)
+
+	// This should not be here, testing of test only
+	task := model.Task{
+		Title: "sample",
+		Done:  false,
+	}
+
+	taskService.Create(task)
+
+	return mux
 }
