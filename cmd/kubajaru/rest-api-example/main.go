@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"kubajaru/rest-api-example/config"
-	"kubajaru/rest-api-example/controller"
-	"kubajaru/rest-api-example/model"
-	"kubajaru/rest-api-example/repository"
-	"kubajaru/rest-api-example/service"
+	"kubajaru/rest-api-example/internal/config"
+	"kubajaru/rest-api-example/internal/controller"
+	"kubajaru/rest-api-example/internal/model"
+	"kubajaru/rest-api-example/internal/repository"
+	"kubajaru/rest-api-example/internal/service"
 	"log/slog"
 	"net/http"
 	"os"

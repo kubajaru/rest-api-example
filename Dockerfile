@@ -14,7 +14,7 @@ RUN go mod download
 COPY . .
 
 # Build statically linked binary (disable CGO)
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o server ./cmd/kubajaru/rest-api-example
 
 # Stage 2: Minimal runtime image using distroless
 FROM gcr.io/distroless/static-debian11

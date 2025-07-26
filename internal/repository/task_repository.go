@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"kubajaru/rest-api-example/model"
+	"kubajaru/rest-api-example/internal/model"
 	"sync"
 )
 

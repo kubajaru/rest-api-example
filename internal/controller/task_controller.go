@@ -2,8 +2,8 @@ package controller
 
 import (
 	"encoding/json"
-	"kubajaru/rest-api-example/model"
-	"kubajaru/rest-api-example/service"
+	"kubajaru/rest-api-example/internal/model"
+	"kubajaru/rest-api-example/internal/service"
 	"log/slog"
 	"net/http"
 	"strconv"

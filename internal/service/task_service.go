@@ -1,8 +1,8 @@
 package service
 
 import (
-	"kubajaru/rest-api-example/model"
-	"kubajaru/rest-api-example/repository"
+	"kubajaru/rest-api-example/internal/model"
+	"kubajaru/rest-api-example/internal/repository"
 )
 
 type TaskService struct {
